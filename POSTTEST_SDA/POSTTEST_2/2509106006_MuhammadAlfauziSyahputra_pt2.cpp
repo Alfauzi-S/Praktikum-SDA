@@ -101,6 +101,14 @@ int linearSearch(Kereta* arr, int n, string rute) {
     return -1;
 }
 
+// iterasi Linear Search:
+// 1. Mulai dari indeks pertama (i = 0) dari array.
+// 2. Di setiap iterasi, bandingkan 'full_rute' dari elemen saat ini (arr + i) dengan 'rute' yang dicari.
+//    'full_rute' didapatkan dengan menggabungkan 'rute_asal' dan 'rute_tujuan' dengan format "asal - tujuan".
+// 3. Jika 'full_rute' cocok dengan 'rute' yang dicari, kembalikan indeks 'i' saat ini dan hentikan pencarian.
+// 4. Jika tidak cocok, lanjutkan ke elemen berikutnya (i++) dan ulangi langkah 2.
+// 5. Jika iterasi selesai (i == n) dan tidak ada kecocokan, kembalikan nilai -1 untuk menandakan tidak ditemukan.
+
 int jumpSearch(Kereta* arr, int n, string no_kereta) {
     int step = static_cast<int>(sqrt(n));
     int prev = 0;
@@ -129,6 +137,14 @@ int jumpSearch(Kereta* arr, int n, string no_kereta) {
     cout << " -> Nomor kereta tidak ditemukan dalam blok.\n";
     return -1;
 }
+
+// iterasi Jump Search:
+// 1. Hitung ukuran lompatan (step) sebagai akar dari jumlah elemen (sqrt(n)).
+// 2. Mulai dari indeks 0, lompat sejauh 'step' selama nilai elemen di indeks 'prev' < nilai yang dicari.
+// 3. Jika lompatan berikutnya masih kurang dari n dan elemen terakhir dari blok lompatan < nilai yang dicari, maka lakukan lompatan berikutnya.
+// 4. Jika tidak, hentikan lompatan dan mulai pencarian linear dari indeks 'prev'.
+// 5. Lakukan pencarian linear dalam blok yang telah ditentukan hingga ditemukan atau habis.
+// 6. Jika ditemukan, kembalikan indeksnya. Jika tidak, kembalikan -1.
 
 void mergeByNumber(Kereta* arr, int l, int m, int r) {
     int n1 = m - l + 1;
