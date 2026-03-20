@@ -225,6 +225,14 @@ void mergeSortByNumber(Kereta* arr, int l, int r) {
     }
 }
 
+// iterasi Merge Sort (mergeByNumber dan mergeSortByNumber):
+// Merge Sort bekerja dengan pendekatan divide-and-conquer (pecah dan taklukkan).
+// 1. Fungsi mergeSortByNumber membagi array menjadi dua bagian (kiri dan kanan) secara rekursif.
+// 2. Pembagian terus berlanjut hingga tinggal satu elemen atau tidak ada elemen.
+// 3. Fungsi mergeByNumber kemudian menggabungkan dua sub-array yang sudah terurut menjadi satu array yang terurut.
+// 4. Proses penggabungan membandingkan elemen-elemen dari dua array dan menempatkannya secara berurutan.
+// 5. Proses ini terus-menerus mengembalikan array yang semakin terurut hingga seluruh array terurut.
+
 void mergeName(Kereta* arr, int l, int m, int r) {
     int n1 = m - l + 1;
     int n2 = r - m;
@@ -275,6 +283,14 @@ void mergeSortByName(Kereta* arr, int l, int r) {
     }
 }
 
+// iterasi Merge Sort (mergeName dan mergeSortByName):
+// Merge Sort bekerja dengan pendekatan divide-and-conquer (pecah dan taklukkan).
+// 1. Fungsi mergeSortByName membagi array menjadi dua bagian (kiri dan kanan) secara rekursif.
+// 2. Pembagian terus berlanjut hingga tinggal satu elemen atau tidak ada elemen.
+// 3. Fungsi mergeName kemudian menggabungkan dua sub-array yang sudah terurut menjadi satu array yang terurut.
+// 4. Proses penggabungan membandingkan elemen-elemen dari dua array dan menempatkannya secara berurutan berdasarkan nama kereta.
+// 5. Proses ini terus-menerus mengembalikan array yang semakin terurut hingga seluruh array terurut berdasarkan nama kereta (A-Z).
+
 void selectionSort(Kereta* arr, int n) {
     cout << "Proses Selection Sort (Harga Tiket Termurah ke Termahal):\n";
     tampilJadwal(arr, n);
@@ -302,6 +318,14 @@ void selectionSort(Kereta* arr, int n) {
     }
     cout << "\nSorting Selesai!\n";
 }
+
+// iterasi Selection Sort:
+// 1. Loop utama (i) berjalan dari indeks 0 hingga n-2.
+// 2. Untuk setiap indeks i, asumsikan elemen di indeks i adalah nilai minimum (min_idx = i).
+// 3. Loop dalam (j) memeriksa semua elemen dari i+1 hingga n-1.
+// 4. Jika ditemukan elemen di indeks j yang lebih kecil dari elemen di indeks min_idx, perbarui min_idx.
+// 5. Setelah loop dalam selesai, jika min_idx != i, maka tukar elemen di indeks i dan min_idx.
+// 6. Proses ini berulang hingga semua elemen terurut.
 
 int main()
 {
