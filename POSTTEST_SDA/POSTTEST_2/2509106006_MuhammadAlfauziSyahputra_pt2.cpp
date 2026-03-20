@@ -68,17 +68,45 @@ void tambahKereta(Kereta* arr, int& n) {
 
     cout << "\n>>> TAMBAH DATA KERETA BARU <<<" << endl;
     cout << "Masukkan nomor kereta: ";
-    cin >> (arr + n)->no_kereta;
-    cin.ignore();
+    getline(cin, (arr + n)->no_kereta);
     cout << "Masukkan nama kereta: ";
     getline(cin, (arr + n)->nama_kereta);
     cout << "Masukkan rute asal: ";
     getline(cin, (arr + n)->rute_asal);
     cout << "Masukkan rute tujuan: ";
     getline(cin, (arr + n)->rute_tujuan);
-    cout << "Masukkan harga tiket: ";
-    cin >> (arr + n)->harga_tiket;
-    cin.ignore();
+    
+    // Validasi Input Harga
+    string input_harga;
+    int harga_tiket_temp;
+    bool valid = false;
+
+    while (!valid) {
+        cout << "Masukkan harga tiket: ";
+        getline(cin, input_harga);
+
+        try {
+            // Coba ubah string ke integer
+            size_t pos;
+            harga_tiket_temp = stoi(input_harga, &pos);
+            // stoi akan gagal jika ada karakter non-digit di akhir
+            if (pos != input_harga.length()) {
+                throw invalid_argument("Input mengandung karakter non-digit.");
+            }
+            if (harga_tiket_temp < 0) {
+                cout << "Harga tidak boleh negatif. Silakan coba lagi." << endl;
+                continue;
+            }
+            valid = true; // Jika tidak ada exception, input valid
+        } catch (const invalid_argument& e) {
+            cout << "Input tidak valid! Harap masukkan angka saja." << endl;
+        } catch (const out_of_range& e) {
+            cout << "Input terlalu besar! Harap masukkan angka yang lebih kecil." << endl;
+        }
+    }
+    (arr + n)->harga_tiket = harga_tiket_temp;
+    // Akhir Bagian Validasi
+
     cout << "Masukkan waktu berangkat: ";
     getline(cin, (arr + n)->waktu_berangkat);
 
