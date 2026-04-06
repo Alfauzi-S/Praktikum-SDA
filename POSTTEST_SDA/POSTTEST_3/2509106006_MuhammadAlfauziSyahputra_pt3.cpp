@@ -54,7 +54,7 @@ struct Transaksi {
     string waktu_transaksi;
 };
 
-# define maxKereta 100
+#define maxKereta 100
 #define MAX_QUEUE 50
 #define MAX_STACK 50
 
@@ -193,7 +193,7 @@ void display_stack(){
     cout << endl;
 }
 
-// --- Fung dari kode sebelumnya ---
+
 void tampilJadwal(Kereta*arr, int n) {
     cout << "\n>>> DAFTAR JADWAL KERETA API <<<" << endl;
     cout << "--------------------------------------------------------------------------------------------------" << endl;
@@ -409,11 +409,10 @@ void mergeSortByName(Kereta* arr, int l, int r) {
     }
 }
 
-// Fungsi swap menggunakan dereferensi pointer
 void swapKereta(Kereta* a, Kereta* b) {
-    Kereta temp = *a; // Dereferensi a
-    *a = *b;          // Dereferensi a dan b
-    *b = temp;        // Dereferensi b
+    Kereta temp = *a;
+    *a = *b;       
+    *b = temp;      
 }
 
 void selectionSort(Kereta* arr, int n) {
@@ -432,7 +431,7 @@ void selectionSort(Kereta* arr, int n) {
         }
         if (min_idx != i) {
             cout << " -> Menukar elemen di indeks " << i << " dan " << min_idx << "." << endl;
-            swapKereta((arr + i), (arr + min_idx)); // Gunakan fungsi swap dengan dereferensi
+            swapKereta((arr + i), (arr + min_idx));
         } else {
             cout << " -> Elemen di indeks " << i << " sudah merupakan yang terkecil, tidak perlu ditukar." << endl;
         }
@@ -603,7 +602,7 @@ int main() {
             cls();
             display_queue();
             pause();
-        } else if(pilihan == "13") { // Tampil Stack (sudah ada di 9)
+        } else if(pilihan == "13") { // Tampil Stack
             cls();
             display_stack();
             pause();
