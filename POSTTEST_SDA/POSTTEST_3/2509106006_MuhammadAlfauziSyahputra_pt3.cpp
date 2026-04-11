@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <iomanip>
 #include <cmath>
+#include <ctime>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -713,8 +714,13 @@ int main() {
             cls();
             Penumpang p_diproses = dequeue();
             if (p_diproses.nama_penumpang != "" && p_diproses.harga_tiket_pesanan != -1) {
+                 time_t now = time(0);
+                 char buffer[100];
+                 strftime(buffer, sizeof(buffer), "%Y-%m-%d %H:%M", localtime(&now));
+                 string waktu_sekarang = buffer;
+        
                  Transaksi t_baru = {p_diproses.nama_penumpang, p_diproses.rute_yang_dipilih, 
-                                   p_diproses.harga_tiket_pesanan, "2026-04-11 10:00"};
+                                   p_diproses.harga_tiket_pesanan, waktu_sekarang};
                  push(&t_baru);
             }
             pause();
