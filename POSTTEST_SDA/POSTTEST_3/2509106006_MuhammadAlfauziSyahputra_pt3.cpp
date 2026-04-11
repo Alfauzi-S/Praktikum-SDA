@@ -141,8 +141,9 @@ Penumpang dequeue(){
         return {"", "", -1};
     }
     Penumpang value = queue[front];
+    Penumpang* base_ptr = queue;
     for (int i = front; i < rear; i++) {
-        queue[i] = queue[i + 1];
+        *(base_ptr + i) = *(base_ptr + i + 1);
     }
     rear--;
     if (rear < front) {
