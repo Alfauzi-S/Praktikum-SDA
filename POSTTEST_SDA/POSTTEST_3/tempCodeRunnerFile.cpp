@@ -31,11 +31,13 @@ void pause() {
 #endif
 }
 
+// Fungsi untuk membersihkan buffer input
 void clearInputBuffer() {
     cin.clear();
     cin.ignore(10000, '\n');
 }
 
+// Fungsi untuk mendapatkan input string yang aman dari skip
 string getInput(const string& prompt) {
     cout << prompt;
     string input;
@@ -43,6 +45,7 @@ string getInput(const string& prompt) {
     return input;
 }
 
+// Fungsi validasi input hanya angka
 int getValidInt(const string& prompt) {
     string input;
     int value;
@@ -140,11 +143,12 @@ Penumpang dequeue(){
         return {"", "", -1};
     }
     Penumpang value = queue[front];
+    // Geser semua elemen ke kiri untuk mengisi slot yang ditinggalkan
     for (int i = front; i < rear; i++) {
         queue[i] = queue[i + 1];
     }
     rear--;
-    if (rear < front) {
+    if (rear < front) {  // Jika antrian kosong setelah dequeue
         front = rear = -1;
     }
     cout << "Penumpang " << value.nama_penumpang << " (Rute: " << value.rute_yang_dipilih 
@@ -169,9 +173,12 @@ void display_queue(){
     }
     cout << "Daftar Antrian Pembelian Tiket (Total: " << size_queue() << " orang):" << endl;
     cout << "--------------------------------------------------------------------------" << endl;
-    Penumpang* base_ptr = queue;
+    
+    // Gunakan pointer arithmetic untuk iterasi array queue
+    Penumpang* base_ptr = queue; // Pointer dasar ke array queue
+    // Loop mulai dari posisi front sampai ke rear
     for(int i = front; i <= rear; i++){
-        Penumpang* current_ptr = base_ptr + i;
+        Penumpang* current_ptr = base_ptr + i; // Hitung alamat elemen ke-i
         cout << "Posisi " << (i - front + 1) << ": Nama: " << current_ptr->nama_penumpang 
              << ", Rute: " << current_ptr->rute_yang_dipilih 
              << ", Harga: Rp " << current_ptr->harga_tiket_pesanan << endl;
@@ -209,7 +216,7 @@ Transaksi pop(){
     } else{
         Transaksi value = stack[top];
         top--;
-        cout << "Transaksi terakhir (" << value.nama_penumpang << ", Rute: " << value.rute_kereta << ", Harga: Rp " << value.harga_transaksi << ") dihapus dari riwayat." << endl;
+        cout << "Transaksi terakhir (" << value.nama_penumpang << ", Rute: " << value.rute_kerja << ", Harga: Rp " << value.harga_transaksi << ") dihapus dari riwayat." << endl;
         return value;
     }
 }
@@ -231,9 +238,12 @@ void display_stack(){
     }
     cout << "Isi Riwayat Transaksi (Total: " << size_stack() << " transaksi):" << endl;
     cout << "----------------------------------------------------------------------------------------" << endl;
-    Transaksi* base_ptr = stack;
+    
+    // Gunakan pointer arithmetic untuk iterasi array stack
+    Transaksi* base_ptr = stack; // Pointer dasar ke array stack
+    // Loop mundur dari top ke 0
     for(int i = top; i >= 0; i--){
-        Transaksi* current_ptr = base_ptr + i;
+        Transaksi* current_ptr = base_ptr + i; // Hitung alamat elemen ke-i
         cout << "Posisi " << (top - i + 1) << ": Nama: " << current_ptr->nama_penumpang 
              << ", Rute: " << current_ptr->rute_kereta 
              << ", Harga: Rp " << current_ptr->harga_transaksi 
@@ -261,10 +271,10 @@ void tampilJadwal(Kereta*arr, int n) {
 bool cekDuplikasiNoKereta(string no_kereta_baru) {
     for (int i = 0; i < jumlah_kereta; i++) {
         if (kereta[i].no_kereta == no_kereta_baru) {
-            return true;
+            return true; // Duplikasi ditemukan
         }
     }
-    return false;
+    return false; // Tidak ada duplikasi
 }
 
 void tambahKereta(Kereta* arr, int& n) {
@@ -274,6 +284,7 @@ void tambahKereta(Kereta* arr, int& n) {
     }
 
     cout << "\n>>> TAMBAH DATA KERETA BARU <<<" << endl;
+    
     string no_kereta_baru;
     do {
         no_kereta_baru = getInput("Masukkan nomor kereta: ");
@@ -284,6 +295,7 @@ void tambahKereta(Kereta* arr, int& n) {
 
     (arr + n)->no_kereta = no_kereta_baru;
     (arr + n)->nama_kereta = getInput("Masukkan nama kereta: ");
+    
     string rute_asal_input, rute_tujuan_input;
     do {
         rute_asal_input = getInput("Masukkan rute asal: ");
@@ -295,6 +307,7 @@ void tambahKereta(Kereta* arr, int& n) {
     
     (arr + n)->rute_asal = rute_asal_input;
     (arr + n)->rute_tujuan = rute_tujuan_input;
+    
     (arr + n)->harga_tiket = getValidInt("Masukkan harga tiket: ");
     (arr + n)->waktu_berangkat = getInput("Masukkan waktu berangkat: ");
 
@@ -309,6 +322,7 @@ void updateKereta(Kereta* arr, int n) {
     }
 
     string no_kereta_cari = getInput("Masukkan nomor kereta yang ingin diupdate: ");
+    
     int index = -1;
     for (int i = 0; i < n; i++) {
         if ((arr + i)->no_kereta == no_kereta_cari) {
@@ -332,6 +346,7 @@ void updateKereta(Kereta* arr, int n) {
     cout << "Waktu: " << (arr + index)->waktu_berangkat << endl;
 
     (arr + index)->nama_kereta = getInput("Masukkan nama kereta baru: ");
+    
     string rute_asal_baru, rute_tujuan_baru;
     do {
         rute_asal_baru = getInput("Masukkan rute asal baru: ");
@@ -343,6 +358,7 @@ void updateKereta(Kereta* arr, int n) {
     
     (arr + index)->rute_asal = rute_asal_baru;
     (arr + index)->rute_tujuan = rute_tujuan_baru;
+    
     (arr + index)->harga_tiket = getValidInt("Masukkan harga tiket baru: ");
     (arr + index)->waktu_berangkat = getInput("Masukkan waktu berangkat baru: ");
 
@@ -356,6 +372,7 @@ void hapusKereta(Kereta* arr, int& n) {
     }
 
     string no_kereta_hapus = getInput("Masukkan nomor kereta yang ingin dihapus: ");
+    
     int index = -1;
     for (int i = 0; i < n; i++) {
         if ((arr + i)->no_kereta == no_kereta_hapus) {
@@ -377,10 +394,12 @@ void hapusKereta(Kereta* arr, int& n) {
     cout << "Harga: Rp " << (arr + index)->harga_tiket << endl;
     cout << "Waktu: " << (arr + index)->waktu_berangkat << endl;
 
+    // Perbaikan: Gunakan getline/getInput untuk konfirmasi
     string konfirmasi_str = getInput("Apakah Anda yakin ingin menghapus data ini? (y/n): ");
     char konfirmasi = konfirmasi_str.empty() ? 'n' : konfirmasi_str[0];
 
     if (konfirmasi == 'y' || konfirmasi == 'Y') {
+        // Geser semua elemen setelah index ke kiri
         for (int i = index; i < n - 1; i++) {
             *(arr + i) = *(arr + i + 1);
         }
@@ -391,12 +410,15 @@ void hapusKereta(Kereta* arr, int& n) {
     }
 }
 
+// Deklarasi fungsi sebelum digunakan
 void mergeByNumber(Kereta* arr, int l, int m, int r);
 void mergeSortByNumber(Kereta* arr, int l, int r);
-void selectionSort(Kereta* arr, int n);
+void selectionSort(Kereta* arr, int n); // Tambahkan deklarasi
 
 int jumpSearch(Kereta* arr, int n, string no_kereta) {
+    // Pastikan array terurut sebelum pencarian
     mergeSortByNumber(arr, 0, n - 1);
+    
     int step = static_cast<int>(sqrt(n));
     int prev = 0;
 
@@ -419,7 +441,10 @@ int jumpSearch(Kereta* arr, int n, string no_kereta) {
     return -1;
 }
 
+// Perbaikan: Linear Search untuk rute bisa dalam format Asal-Tujuan atau Tujuan-Asal
 int linearSearch(Kereta* arr, int n, string rute) {
+    // Format standar adalah "Asal - Tujuan"
+    // Cek juga format terbalik "Tujuan - Asal"
     string rute_terbalik = "";
     size_t pos = rute.find(" - ");
     if (pos != string::npos) {
@@ -554,6 +579,7 @@ void bubbleSort(Kereta* arr, int n) {
     }
 }
 
+// Tambahkan fungsi Selection Sort
 void selectionSort(Kereta* arr, int n) {
     for (int i = 0; i < n - 1; i++) {
         int min_idx = i;
@@ -569,6 +595,7 @@ void selectionSort(Kereta* arr, int n) {
 }
 
 int main() {
+    // contoh data
     kereta[0] = {"KA003", "Bima", "Jakarta", "Mataram", 420000, "20:00"};
     kereta[1] = {"KA001", "Argo Bromo", "Jakarta", "Surabaya", 350000, "06:00"};
     kereta[2] = {"KA002", "Gajayana", "Bandung", "Malang", 280000, "08:30"};
@@ -584,15 +611,16 @@ int main() {
         cout << "4) Jump Search cari berdasarkan nomor kereta" << endl;
         cout << "5) Merge sort urutkan berdasarkan nama kereta (A-Z)" << endl;
         cout << "6) Bubble Sort urutkan berdasarkan harga tiket (termurah)" << endl;
-        cout << "7) Selection Sort urutkan berdasarkan harga tiket (termurah)" << endl;
+        cout << "7) Selection Sort urutkan berdasarkan harga tiket (termurah)" << endl; // Tambahkan menu
         cout << "8) Update data kereta" << endl;
         cout << "9) Hapus data kereta" << endl;
         cout << "10) Tambah Penumpang ke Antrian Pembelian Tiket (Queue)" << endl;
         cout << "11) Proses Tiket (Dequeue)" << endl;
-        cout << "12) Batalkan Transaksi Terakhir (Pop)" << endl;
-        cout << "13) Penumpang Terdepan (Peek)" << endl;
-        cout << "14) Tampil semua antrian (dengan pointer arithmetic)" << endl;
-        cout << "15) Tampil semua riwayat (dengan pointer arithmetic)" << endl;
+        cout << "12) Riwayat Transaksi (Stack)" << endl;
+        cout << "13) Batalkan Transaksi Terakhir (Pop)" << endl;
+        cout << "14) Penumpang Terdepan (Peek)" << endl;
+        cout << "15) Tampil semua antrian (dengan pointer arithmetic)" << endl;
+        cout << "16) Tampil semua riwayat (dengan pointer arithmetic)" << endl;
         cout << "0) Keluar Program" << endl;
         cout << "-------------------------------------------------------------------------------" << endl;
         pilihan = getInput("Masukan Pilihan: ");
@@ -610,7 +638,7 @@ int main() {
             cout << ">>> Linear Search <<<" << endl;
             string ruteCari = getInput("Masukkan rute (asal & tujuan) dengan format 'Asal - Tujuan' (contoh: Jakarta - Surabaya): ");
 
-            int indexLinear = linearSearch(kereta, jumlah_kereta, ruteCari);
+            int indexLinear = linearSearch(kereta, jumlah_kereta, ruteCari); // Gunakan fungsi yang telah diperbaiki
             if (indexLinear != -1) {
                 cout << "-----------------------------------------------------------" << endl;
                 cout << "Data ditemukan di indeks: " << indexLinear << endl;
@@ -662,7 +690,7 @@ int main() {
             cout << "\nData setelah diurutkan (Bubble Sort - Harga Tiket Termurah):\n";
             tampilJadwal(kereta, jumlah_kereta);
             pause();
-        } else if(pilihan == "7") {
+        } else if(pilihan == "7") { // Selection Sort
             cls();
             cout << ">>> Selection Sort <<<" << endl;
             cout << "Data sebelum diurutkan (Selection Sort - Harga Tiket):\n";
@@ -671,15 +699,15 @@ int main() {
             cout << "\nData setelah diurutkan (Selection Sort - Harga Tiket Termurah):\n";
             tampilJadwal(kereta, jumlah_kereta);
             pause();
-        } else if(pilihan == "8") {
+        } else if(pilihan == "8") { // Update Kereta
             cls();
             updateKereta(kereta, jumlah_kereta);
             pause();
-        } else if(pilihan == "9") {
+        } else if(pilihan == "9") { // Hapus Kereta
             cls();
             hapusKereta(kereta, jumlah_kereta);
             pause();
-        } else if(pilihan == "10") {
+        } else if(pilihan == "10") { // Enqueue
             cls();
             if (jumlah_kereta == 0) {
                 cout << "Belum ada data kereta. Tidak bisa memesan tiket." << endl;
@@ -709,7 +737,7 @@ int main() {
                 }
             }
             pause();
-        } else if(pilihan == "11") {
+        } else if(pilihan == "11") { // Dequeue dan Push ke Stack
             cls();
             Penumpang p_diproses = dequeue();
             if (p_diproses.nama_penumpang != "" && p_diproses.harga_tiket_pesanan != -1) {
@@ -718,19 +746,23 @@ int main() {
                  push(&t_baru);
             }
             pause();
-        } else if(pilihan == "12") {
+        } else if(pilihan == "12") { // Tampil Stack
+            cls();
+            display_stack();
+            pause();
+        } else if(pilihan == "13") { // Pop Stack
             cls();
             pop();
             pause();
-        } else if(pilihan == "13") {
+        } else if(pilihan == "14") { // Peek Queue
             cls();
             peek_queue();
             pause();
-        } else if(pilihan == "14") {
+        } else if(pilihan == "15") { // Tampil Queue (pointer arithmetic)
             cls();
             display_queue();
             pause();
-        } else if(pilihan == "15") {
+        } else if(pilihan == "16") { // Tampil Stack (pointer arithmetic) - sama dengan 12
             cls();
             display_stack();
             pause();
