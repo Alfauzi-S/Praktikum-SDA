@@ -73,7 +73,6 @@ int getValidInt(const string& prompt) {
     return value;
 }
 
-// --- Deklarasi struct data terlebih dahulu ---
 struct Kereta {
     string no_kereta;
     string nama_kereta;
@@ -96,14 +95,13 @@ struct Transaksi {
     string waktu_transaksi;
 };
 
-// --- Baru kemudian deklarasi struct node ---
 struct NodePenumpang {
-    Penumpang data; // Sekarang 'Penumpang' sudah dikenal
+    Penumpang data;
     NodePenumpang* next;
 };
 
 struct NodeTransaksi {
-    Transaksi data; // Sekarang 'Transaksi' sudah dikenal
+    Transaksi data;
     NodeTransaksi* next;
 };
 
@@ -133,7 +131,7 @@ int size_queue() {
 
 void enqueue(Penumpang* p) {
     NodePenumpang* newNode = new NodePenumpang;
-    newNode->data = *p; // Sekarang 'data' adalah struct Penumpang
+    newNode->data = *p;
     newNode->next = nullptr;
 
     if (tail_queue == nullptr) {
@@ -152,7 +150,7 @@ Penumpang dequeue() {
         return {"", "", -1};
     }
     NodePenumpang* temp = head_queue;
-    Penumpang value = head_queue->data; // Akses field 'data' dari NodePenumpang
+    Penumpang value = head_queue->data;
     head_queue = head_queue->next;
     if (head_queue == nullptr) {
         tail_queue = nullptr;
@@ -168,8 +166,8 @@ int peek_queue() {
         cout << "Queue is empty. Tidak ada penumpang di antrian terdepan." << endl;
         return -1;
     }
-    cout << "Penumpang terdepan di antrian: " << head_queue->data.nama_penumpang // Akses field dari 'data'
-         << " (Rute: " << head_queue->data.rute_yang_dipilih << ")" << endl; // Akses field dari 'data'
+    cout << "Penumpang terdepan di antrian: " << head_queue->data.nama_penumpang 
+         << " (Rute: " << head_queue->data.rute_yang_dipilih << ")" << endl; 
     return 0;
 }
 
@@ -183,9 +181,9 @@ void display_queue() {
     NodePenumpang* current = head_queue;
     int position = 1;
     while (current != nullptr) {
-        cout << "Posisi " << position << ": Nama: " << current->data.nama_penumpang // Akses field dari 'data'
-             << ", Rute: " << current->data.rute_yang_dipilih // Akses field dari 'data'
-             << ", Harga: Rp " << current->data.harga_tiket_pesanan << endl; // Akses field dari 'data'
+        cout << "Posisi " << position << ": Nama: " << current->data.nama_penumpang 
+             << ", Rute: " << current->data.rute_yang_dipilih 
+             << ", Harga: Rp " << current->data.harga_tiket_pesanan << endl; 
         current = current->next;
         position++;
     }
@@ -208,7 +206,7 @@ int size_stack() {
 
 void push(Transaksi* t) {
     NodeTransaksi* newNode = new NodeTransaksi;
-    newNode->data = *t; // Sekarang 'data' adalah struct Transaksi
+    newNode->data = *t; 
     newNode->next = top_stack;
     top_stack = newNode;
     cout << "Transaksi untuk " << t->nama_penumpang << " (Rute: " << t->rute_kereta 
@@ -221,7 +219,7 @@ Transaksi pop() {
         return {"", "", -1, ""};
     }
     NodeTransaksi* temp = top_stack;
-    Transaksi value = top_stack->data; // Akses field 'data' dari NodeTransaksi
+    Transaksi value = top_stack->data;
     top_stack = top_stack->next;
     delete temp;
     cout << "Transaksi terakhir (" << value.nama_penumpang << ", Rute: " << value.rute_kereta << ", Harga: Rp " << value.harga_transaksi << ") dihapus dari riwayat." << endl;
@@ -233,8 +231,8 @@ int peek_stack() {
         cout << "Stack is empty. Tidak ada transaksi terakhir." << endl;
         return -1;
     }
-    cout << "Transaksi terakhir di riwayat: " << top_stack->data.nama_penumpang // Akses field dari 'data'
-         << " (Rute: " << top_stack->data.rute_kereta << ", Harga: Rp " << top_stack->data.harga_transaksi << ")" << endl; // Akses field dari 'data'
+    cout << "Transaksi terakhir di riwayat: " << top_stack->data.nama_penumpang 
+         << " (Rute: " << top_stack->data.rute_kereta << ", Harga: Rp " << top_stack->data.harga_transaksi << ")" << endl; 
     return 0;
 }
 
@@ -248,10 +246,10 @@ void display_stack() {
     NodeTransaksi* current = top_stack;
     int position = 1;
     while (current != nullptr) {
-        cout << "Posisi " << position << ": Nama: " << current->data.nama_penumpang // Akses field dari 'data'
-             << ", Rute: " << current->data.rute_kereta // Akses field dari 'data'
-             << ", Harga: Rp " << current->data.harga_transaksi // Akses field dari 'data'
-             << ", Waktu: " << current->data.waktu_transaksi << endl; // Akses field dari 'data'
+        cout << "Posisi " << position << ": Nama: " << current->data.nama_penumpang 
+             << ", Rute: " << current->data.rute_kereta 
+             << ", Harga: Rp " << current->data.harga_transaksi 
+             << ", Waktu: " << current->data.waktu_transaksi << endl; 
         current = current->next;
         position++;
     }
