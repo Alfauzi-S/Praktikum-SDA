@@ -206,7 +206,7 @@ int size_stack() {
 
 void push(Transaksi* t) {
     NodeTransaksi* newNode = new NodeTransaksi;
-    newNode->data = *t; 
+    newNode->data = *t;
     newNode->next = top_stack;
     top_stack = newNode;
     cout << "Transaksi untuk " << t->nama_penumpang << " (Rute: " << t->rute_kereta 
@@ -577,9 +577,34 @@ void selectionSort(Kereta* arr, int n) {
             }
         }
         if (min_idx != i) {
-            swapKereta((arr + i), (arr + min_idx));
+            swapKereta((arr + i), (arr + min_idx)); 
         }
     }
+}
+
+void swapDataNodePenumpang(NodePenumpang* node1, NodePenumpang* node2) {
+    if (node1 == nullptr || node2 == nullptr) {
+        cout << "Error: Salah satu atau kedua node adalah nullptr. Tidak bisa ditukar." << endl;
+        return;
+    }
+    Penumpang temp_data = node1->data;
+    node1->data = node2->data;
+    node2->data = temp_data;
+    cout << "Data penumpang antara dua node berhasil ditukar menggunakan dereferensi pointer." << endl;
+}
+
+void cobaSwapDuaAntrianPertama() {
+    if (head_queue == nullptr || head_queue->next == nullptr) {
+        cout << "Tidak cukup antrian untuk menukar dua data pertama (antrian kosong atau hanya satu elemen)." << endl;
+        return;
+    }
+    cout << "Sebelum swap dua antrian pertama:" << endl;
+    display_queue();
+
+    swapDataNodePenumpang(head_queue, head_queue->next);
+
+    cout << "\nSetelah swap dua antrian pertama:" << endl;
+    display_queue();
 }
 
 int main() {
@@ -607,6 +632,7 @@ int main() {
         cout << "13) Penumpang Terdepan (Peek - Linked List)" << endl;
         cout << "14) Tampil semua antrian (Linked List)" << endl;
         cout << "15) Tampil semua riwayat (Linked List)" << endl;
+        cout << "16) Swap Dua Data Antrian Pertama (Dereferensi Pointer)" << endl;
         cout << "0) Keluar Program" << endl;
         cout << "-------------------------------------------------------------------------------" << endl;
         pilihan = getInput("Masukan Pilihan: ");
@@ -752,6 +778,10 @@ int main() {
         } else if(pilihan == "15") {
             cls();
             display_stack();
+            pause();
+        }else if(pilihan == "16") {
+            cls();
+            cobaSwapDuaAntrianPertama();
             pause();
         } else if(pilihan == "0") {
             cout << "Terima kasih telah menggunakan sistem informasi kereta api!" << endl;
